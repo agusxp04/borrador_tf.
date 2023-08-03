@@ -4,19 +4,38 @@ from tkintermapview from TkinterMapView
 import tkintermapview as mapa
 import customtkinter as ctk
 
-root_tk = tkinter.Tk()
-root_tk.geometry("800x600")
-root_tk.tittle("Google Maps")
+class VistaMapa(ctk.CTkFrame):
+  def __init__(self, master=None, controlador=None):
+    super().__init__(master)
+    self.master = master
+    self.controlador = controlador
+    self.ubicaciones = ()
 
-map_widget = tkintermapview.TkinterMapView(root_tk, width=800, height=600, corner_radius=0)
-map_widget.place(relx=0.5, rely=0.5, anchor=tkinter.CENTER)
-map_widget.pack(fill="both", espand=True)
+    #ventana mapa
+    self.mapa = mapa.TkinterMapView(self, width=800, height=600, corner_radius=15)
+    self.mapa.pack (pady=10, padx=10)
+    map_widget.pack(fill="both", espand=True)
 
-map_widget.set_position(-24.7859, -65.41166) #Salta, Argentina
-map_widget.set_zoom(15)
+    self.mapa.set_position(-24.7859, -65.41166, marker= True) #Salta, Argentina
+    self.mapa.set_zoom(15)
 
-map_widget.set_address("Capital, Salta, Argentina")
+ def crear_mapa (self):
+   evento_seleccionado = self.controlador.ubicación_seleccionadada
+   self.mapa.set_position (evento_seleccionado.latitud, evento_seleccionado.longitud)
+   sel.mapa.set.marker (evento_seleccionado.latitud, evento_seleccionado.longitud)
 
-map_widget.set_tile_server(
+    ubicaciones = ctk.CTkButton(
+        self,
+        text="Volver a Ubicaciones",
+        corner_radius=15)
+        .pack (pady=10, padx=10)
+        
+    add = ctk.CTkButton(
+        self,
+        text="Añadir ubicación",
+        corner_radius=15)
+        .pack(pady=10, padx=10)
+    
 
-root_tk.mainloop()
+  
+
